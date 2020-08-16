@@ -43,43 +43,41 @@ https://gist.github.com/mahenzon/d77361a1bd44f138e706ae4734007ee6
 # РЕЗУЛЬТАТЫ РАБОТЫ main.py #
 
 ## task #1 ##
-time spent for: calculate_power_for_collection 0:00:00
-source list: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-powered in 2
-final list: [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+time spent for: calculate_power_for_collection 0:00:00  
+source list: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]  
+powered in 2  
+final list: [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]  
 
-## task #2 ##
-time spent for: get_filtered_numbers 0:00:00
-source list: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-filtered to get even numbers
-final list: [0, 2, 4, 6, 8]
+## task #2 ##  
+time spent for: get_filtered_numbers 0:00:00  
+source list: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]  
+filtered to get even numbers  
+final list: [0, 2, 4, 6, 8]  
 
 ## task #3 ver.1 ##
-time spent for: append_next_phi 0:00:00
-calculating 5 items of phi numbers
-phi list: 0, 1, 1,
+time spent for: append_next_phi 0:00:00  
+calculating 5 items of phi numbers  
+phi list: 0, 1, 1,  
 
 ## task #3 ver.2 ##
-__ --> return_next_phi (2)
-__ <-- return_next_phi (2) == 1
-___ --> return_next_phi (3)
-__ --> return_next_phi (2)
-__ <-- return_next_phi (2) == 1
-_ --> return_next_phi (1)
-_ <-- return_next_phi (1) == 1
-___ <-- return_next_phi (3) == 2
-____ --> return_next_phi (4)
-___ --> return_next_phi (3)
-__ --> return_next_phi (2)
-__ <-- return_next_phi (2) == 1
-_ --> return_next_phi (1)
-_ <-- return_next_phi (1) == 1
-___ <-- return_next_phi (3) == 2
-__ --> return_next_phi (2)
-__ <-- return_next_phi (2) == 1
-____ <-- return_next_phi (4) == 3
-phi list: 0, 1, 1, 2, 3,
-time spent for: return_next_phi 0:00:00.000529
-
-Process finished with exit code 0
+__ --> return_next_phi (2)  
+__ <-- return_next_phi (2) == 1  
+___ --> return_next_phi (3)  
+__ --> return_next_phi (2)  
+__ <-- return_next_phi (2) == 1  
+_ --> return_next_phi (1)  
+_ <-- return_next_phi (1) == 1  
+___ <-- return_next_phi (3) == 2  
+____ --> return_next_phi (4)  
+___ --> return_next_phi (3)  
+__ --> return_next_phi (2)  
+__ <-- return_next_phi (2) == 1  
+_ --> return_next_phi (1)  
+_ <-- return_next_phi (1) == 1  
+___ <-- return_next_phi (3) == 2  
+__ --> return_next_phi (2)  
+__ <-- return_next_phi (2) == 1  
+____ <-- return_next_phi (4) == 3  
+phi list: 0, 1, 1, 2, 3,  
+time spent for: return_next_phi 0:00:00.000529  
 
