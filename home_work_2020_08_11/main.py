@@ -1,45 +1,42 @@
 import operator
 import datetime
 from functools import wraps
+from itertools import repeat
 
 # common variables
 n = 10
-list_numbers = [i for i in range(0, n)]
+list_numbers = list(range(n))
 
 
 # decorators
 def count_time(func):
     @wraps(func)
-    def wrapper(arg1, arg2):
+    def wrapper(*args):
         start_time = datetime.datetime.now()
-        res = func(arg1, arg2)
-        end_time = datetime.datetime.now()
-        time_spent = end_time - start_time
+        res = func(*args)
+        time_spent = datetime.datetime.now() - start_time
         print('time spent for:', func.__name__, time_spent)
         return res
+
     return wrapper
 
 
-def count_iterations(func):
+def show_iterations(func):
     @wraps(func)
-    def wrapper(arg1, arg2, arg3):
-        print('-' * arg3, '>', arg3)
-        res = func(arg1, arg2, arg3)
-        print('-' * arg3, '>', arg3)
+    def wrapper(*args):
+        print('_' * args[0], '-->', func.__name__, '({0})'.format(args[0]))
+        res = func(*args)
+        print('_' * args[0], '<--', func.__name__, '({0})'.format(args[0]), '==', res)
         return res
+
     return wrapper
 
 
 # task #1
 @count_time
 def calculate_power_for_collection(input_list, pow_number=2):
-    power_list = list_numbers.copy()
-    for i in power_list:
-        power_list[i] = pow_number
-
-    output_list = list(map(operator.ipow, input_list, power_list))
-
-    return output_list
+    power_list = repeat(pow_number, len(input_list))
+    return list(map(operator.ipow, input_list, power_list))
 
 
 print('task #1')
@@ -65,13 +62,13 @@ def get_filtered_numbers(input_list, numbers_type):
 
     if numbers_type == 'even':
         return list(filter(lambda x: x % 2 == 0, input_list))
-    elif numbers_type == 'odd':
+    if numbers_type == 'odd':
         return list(filter(lambda x: x % 2 != 0, input_list))
-    elif numbers_type == 'prime':
+    if numbers_type == 'prime':
         return list(filter(get_prime, input_list))
 
 
-print('task #2')
+print("task #2")
 NUMBERS_TYPE = 'even'  # 'even/odd/prime'
 filtered_list = get_filtered_numbers(list_numbers, NUMBERS_TYPE)
 print('source list:', list_numbers)
@@ -81,28 +78,46 @@ print('')
 
 
 # task #3
-@count_iterations
-def apend_next_phi(collect, max_count=20, counter=0):
-    """
-    :param collect: list of numbers phi
-     :param counter: counting calculated numbers
-    :param max_count: contains maximum iterations
-    :return: collect - list with appended phi number
-    """
-
+def append_next_phi(collect, max_count=20):
     collect.append(collect[-1] + collect[-2])
-    counter += 1
-    if max_count == counter:
-        return collect
-    else:
-        apend_next_phi(collect, max_count, counter)
+    if max_count != len(collect):
+        append_next_phi(collect, max_count)
+
     return collect
 
-print('task #3')
+
+print('task #3 ver.1')
 coll = [0, 1]
-maxcount = 15
-res_phi = apend_next_phi(coll, 15, 0)
+maxcount = 5
+start_time = datetime.datetime.now()
+res_phi = append_next_phi(coll, maxcount - 2)
+time_spent = datetime.datetime.now() - start_time
+print('time spent for:', append_next_phi.__name__, time_spent)
 print('calculating', maxcount, 'items of phi numbers')
 print('phi list', end=": ")
 for i in res_phi:
     print(i, end=", ")
+
+@show_iterations
+def return_next_phi(n):
+    if n in (1, 2):
+        return 1
+    return return_next_phi(n - 1) + return_next_phi(n - 2)
+
+
+print()
+print('task #3 ver.2')
+start_time = datetime.datetime.now()
+list_numbers = list(range(maxcount))
+res_phi = [0, 1, ]
+for i in list_numbers:
+    if i > 1:
+        res_phi.append(return_next_phi(i))
+
+print('phi list', end=": ")
+for i in res_phi:
+    print(i, end=", ")
+
+print()
+time_spent = datetime.datetime.now() - start_time
+print('time spent for:', return_next_phi.__name__, time_spent)
