@@ -22,11 +22,14 @@ def count_time(func):
 
 
 def show_iterations(func):
+    func.count = 0
     @wraps(func)
     def wrapper(*args):
-        print('_' * args[0], '-->', func.__name__, '({0})'.format(args[0]))
+        func.count += 1
+        print('_' * func.count, '-->', func.__name__, '({0})'.format(func.count))
         res = func(*args)
-        print('_' * args[0], '<--', func.__name__, '({0})'.format(args[0]), '==', res)
+        func.count -= 1
+        print('_' * func.count, '<--', func.__name__, '({0})'.format(func.count), '==', res)
         return res
 
     return wrapper
@@ -52,20 +55,21 @@ print('')
 @count_time
 def get_filtered_numbers(input_list, numbers_type):
 
-    def get_prime(x):
-        if x == 1:
-            return True
-        temper: int = 2
-        while x % temper != 0:
-            temper += 1
-        return temper == x
-
     if numbers_type == 'even':
         return list(filter(lambda x: x % 2 == 0, input_list))
     if numbers_type == 'odd':
         return list(filter(lambda x: x % 2 != 0, input_list))
     if numbers_type == 'prime':
         return list(filter(get_prime, input_list))
+
+
+def get_prime(x):
+    if x <= 1:
+       return True
+    temper: int = 2
+    while x % temper != 0:
+        temper += 1
+    return temper == x
 
 
 print("task #2")
@@ -78,38 +82,20 @@ print('')
 
 
 # task #3
-def append_next_phi(collect, max_count=20):
-    collect.append(collect[-1] + collect[-2])
-    if max_count != len(collect):
-        append_next_phi(collect, max_count)
-
-    return collect
-
-
-print('task #3 ver.1')
-coll = [0, 1]
-maxcount = 5
-start_time = datetime.datetime.now()
-res_phi = append_next_phi(coll, maxcount - 2)
-time_spent = datetime.datetime.now() - start_time
-print('time spent for:', append_next_phi.__name__, time_spent)
-print('calculating', maxcount, 'items of phi numbers')
-print('phi list', end=": ")
-for i in res_phi:
-    print(i, end=", ")
-
 @show_iterations
 def return_next_phi(n):
-    if n in (1, 2):
+    if n < 2:
         return 1
     return return_next_phi(n - 1) + return_next_phi(n - 2)
 
 
 print()
 print('task #3 ver.2')
+maxcount = 5
 start_time = datetime.datetime.now()
 list_numbers = list(range(maxcount))
 res_phi = [0, 1, ]
+counter_phi = 0
 for i in list_numbers:
     if i > 1:
         res_phi.append(return_next_phi(i))
