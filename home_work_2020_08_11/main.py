@@ -107,3 +107,5 @@ for i in res_phi:
 print()
 time_spent = datetime.datetime.now() - start_time
 print('time spent for:', return_next_phi.__name__, time_spent)
+
+
