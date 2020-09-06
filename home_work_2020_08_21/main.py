@@ -1,42 +1,32 @@
-class VehicleCommon:
-    TYPE_OF_VEHICLE = ''  # 'Land/Water/Air
-    IS_PASSANGER = ''  # 'True/False'
-    FUEL_TYPE = ''  # 'Carbon/Hydrogen/Electrical'
-    LIGHTS_IS_ON = '' # 'True/False'
+import vehicles
 
-    def change_light(self, status):
-        if self.LIGHTS_IS_ON == True:
-            self.LIGHTS_IS_ON = False
-            print('LIGHT STATUS :', 'OFF')
+# basic classes demo
+print('Base classes demo starting: init')
+vehicles_type_list = ('car', 'ship', 'plain', 'spaceship', 'bike', 'skateboard')
+max_vehicles_of_single_type = 2
+vehicles_list = list()
+for current_vehicle_type in vehicles_type_list:
+
+    for vehicles_counter in range(max_vehicles_of_single_type):
+
+        if current_vehicle_type == 'car':
+            ve = vehicles.VehicleCar(vehicles_counter)
+            ve.WHEELS_QUANTITY = ve.WHEELS_QUANTITY + vehicles_counter * 2
+            ve.FUEL_CAPACITY = vehicles_counter * 50
+            ve.MAX_DISTANCE = vehicles_counter * 100
+        elif current_vehicle_type == 'ship':
+            ve = vehicles.VehicleShip(vehicles_counter)
+        elif current_vehicle_type == 'plain':
+            ve = vehicles.VehiclePlain(vehicles_counter)
         else:
-            self.LIGHTS_IS_ON = True
-            print('LIGHT STATUS :', 'ON')
+            print(current_vehicle_type,'not supported')
+            continue
 
+        vehicles_list.append(ve)
+        print(ve)
 
-class VehicleLand(VehicleCommon):
-    TYPE_OF_VEHICLE = 'Land'
+print('Base classes demo starting: actions')
+for i in vehicles_list:
+    i.make_a_sound()
+    i.drive_a_distance()
 
-
-class VehicleWater(VehicleCommon):
-    TYPE_OF_VEHICLE = 'Water'
-
-
-class VehicleAir(VehicleCommon):
-    TYPE_OF_VEHICLE = 'Air'
-
-
-truck1 = VehicleLand()
-truck1.FUEL_TYPE = 'Carbon'
-truck1.IS_PASSANGER = False
-
-bus1 = VehicleLand()
-bus1.FUEL_TYPE = 'Electrical'
-bus1.IS_PASSANGER = True
-
-
-tractor1 = VehicleLand()
-bus1.FUEL_TYPE = 'Hydrogen'
-bus1.IS_PASSANGER = False
-
-
-tractor1.change_light(True)
